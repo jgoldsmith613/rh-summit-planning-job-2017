@@ -34,7 +34,7 @@ def jobComplete(String jobName) {
       while [ \$COUNTER -lt \$MAX_COUNTER ]
       do
         JOB_RESPONSE=\$(oc get job  ${jobName} --template="{{.status.conditions}}")
-        echo "\$JOB_RESPONSE" | grep "type: Complete" >/dev/null 2>&1
+        echo "\$JOB_RESPONSE" | grep "type:Complete" >/dev/null 2>&1
         if [ \$? -eq 0 ]; then
           echo "Job Succeeded!"
           break
