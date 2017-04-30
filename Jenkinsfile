@@ -7,7 +7,7 @@ node( 'maven' ) {
 
     stage('put work on queue'){
         login()
-        sh 'oc apply -f job-producer.yaml'
+        sh 'oc apply -f producer-job.yaml'
         jobComplete("producer-job")
     }
 
