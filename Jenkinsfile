@@ -11,6 +11,18 @@ node( 'maven' ) {
         jobComplete("producer-job")
     }
 
+    stage('execute planning'){
+        login()
+        sh 'oc apply -f planner-job.yaml'
+        jobComplete("planner-job")
+    }
+
+    stage('clean up job objects'){
+        input 'Do you wish to clean up job data?'
+        login()
+        sh 'oc delete jobs --all'
+    }
+
 
 
 }

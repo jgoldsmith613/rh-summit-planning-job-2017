@@ -3,7 +3,7 @@ kind: Job
 metadata:
   name: planner-job
 spec:
-  parallelism: 1
+  parallelism: 2
   template:
     metadata:
       name: planner-job
