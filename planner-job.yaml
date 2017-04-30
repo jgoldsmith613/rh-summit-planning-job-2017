@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: planner-job
+spec:
+  parallelism: 1
+  template:
+    metadata:
+      name: planner-job
+    spec:
+      containers:
+      - name: planner-job
+        image: 172.30.1.1:5000/test/test:latest
+        volumeMounts:
+         - name: sample-data
+           mountPath: /etc/sample-data
+         - name: report-data
+           mountPath: /etc/report-data
+        resources:
+          limits:
+            cpu: "1"
+          requests:
+            cpu: "1"
+        env:
+         - name: JAVA_MAIN_CLASS
+           value: com.rhc.planner.app.PlannerRunner
+      volumes:
+       - name: sample-data
+         configMap:
+           name: sample-data
+       - name: report-data
+         persistentVolumeClaim:
+           claimName: report-data
+      restartPolicy: Never
+

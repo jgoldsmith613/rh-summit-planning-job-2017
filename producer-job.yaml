@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: producer-job
+spec:
+  template:
+    metadata:
+      name: producer-job
+    spec:
+      containers:
+      - name: producer-job
+        image: 172.30.1.1:5000/test/test:latest
+        volumeMounts:
+         - name: sample-data
+           mountPath: /etc/sample-data
+        env:
+         - name: JAVA_MAIN_CLASS
+           value: com.rhc.planner.app.PlannerProducer
+      volumes:
+       - name: sample-data
+         configMap:
+           name: sample-data
+      restartPolicy: Never
+
